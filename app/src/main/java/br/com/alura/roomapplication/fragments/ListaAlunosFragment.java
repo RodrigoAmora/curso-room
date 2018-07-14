@@ -14,7 +14,20 @@ import br.com.alura.roomapplication.delegate.AlunosDelegate;
 
 public class ListaAlunosFragment extends Fragment implements View.OnClickListener {
 
-    ListView listaAlunos;
+    private AlunosDelegate delegate;
+    private ListView listaAlunos;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        delegate = (AlunosDelegate) getActivity();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        delegate.setTitulo("Lista de Alunos");
+    }
 
     @Nullable
     @Override
@@ -29,7 +42,6 @@ public class ListaAlunosFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        AlunosDelegate delegate = (AlunosDelegate) getActivity();
         delegate.lidaComClickFAB();
     }
 

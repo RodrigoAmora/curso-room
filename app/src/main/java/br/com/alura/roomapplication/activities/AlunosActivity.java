@@ -35,4 +35,14 @@ public class AlunosActivity extends AppCompatActivity implements AlunosDelegate 
         trocarDeFragment(new FormularioAlunosFragment(), true);
     }
 
+    @Override
+    public void voltarParaTelaAnterior() {
+        onBackPressed();
+    }
+
+    @Override
+    public void setTitulo(String titulo) {
+        setTitle(titulo);
+    }
+
 }

@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import br.com.alura.roomapplication.R;
+import br.com.alura.roomapplication.database.AlunoDao;
+import br.com.alura.roomapplication.database.GeradorDeBancoDaDados;
 import br.com.alura.roomapplication.delegate.AlunosDelegate;
 import br.com.alura.roomapplication.modelos.Aluno;
 
@@ -47,6 +49,11 @@ public class FormularioAlunosFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 atualizarAluno();
+
+                GeradorDeBancoDaDados gerador = new GeradorDeBancoDaDados();
+                AlunoDao alunoDao = gerador.gerar(getActivity()).getAuoDao();
+                alunoDao.insere(aluno);
+
                 delegate.voltarParaTelaAnterior();
             }
         });

@@ -31,6 +31,7 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$materialDesignVersion"
     implementation "com.android.support.constraint:constraint-layout:1.0.2"
 
+    //ROOM
     def roomVersion = '1.0.0'
     implementation "android.arch.persistence.room:runtime:$roomVersion"
     annotationProcessor "android.arch.persistence.room:compiler:$roomVersion"

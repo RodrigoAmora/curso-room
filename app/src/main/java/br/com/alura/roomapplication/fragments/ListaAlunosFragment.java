@@ -1,5 +1,6 @@
 package br.com.alura.roomapplication.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -13,8 +14,6 @@ import android.widget.ListView;
 import java.util.List;
 
 import br.com.alura.roomapplication.R;
-import br.com.alura.roomapplication.database.AlunoDao;
-import br.com.alura.roomapplication.database.AluraDatadase;
 import br.com.alura.roomapplication.database.GeradorDeBancoDaDados;
 import br.com.alura.roomapplication.delegate.AlunosDelegate;
 import br.com.alura.roomapplication.modelos.Aluno;
@@ -58,12 +57,15 @@ public class ListaAlunosFragment extends Fragment implements View.OnClickListene
 
     private void configurarLista(View view) {
         GeradorDeBancoDaDados gerador = new GeradorDeBancoDaDados();
+        /*
         AluraDatadase aluraDatadase = gerador.gerar(getContext());
         AlunoDao alunoDao = aluraDatadase.getAuoDao();
         List<Aluno> alunos = alunoDao.busca();
-
+        */
+        Context context = getContext();
+        List<Aluno> alunos = gerador.gerar(context).getAuoDao().busca();
         ListView lista = view.findViewById(R.id.fragment_lista);
-        ArrayAdapter<Aluno> adapter = new ArrayAdapter<Aluno>(getContext(), android.R.layout.simple_expandable_list_item_1, alunos);
+        ArrayAdapter<Aluno> adapter = new ArrayAdapter<Aluno>(context, android.R.layout.simple_expandable_list_item_1, alunos);
         lista.setAdapter(adapter);
     }
 

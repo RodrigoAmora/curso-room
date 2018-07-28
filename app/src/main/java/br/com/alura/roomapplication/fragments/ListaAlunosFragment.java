@@ -39,9 +39,7 @@ public class ListaAlunosFragment extends Fragment implements View.OnClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_lista, container, false);
-
         configurarComponentsDa(view);
-
         return view;
     }
 
@@ -65,7 +63,7 @@ public class ListaAlunosFragment extends Fragment implements View.OnClickListene
         Context context = getContext();
         List<Aluno> alunos = gerador.gerar(context).getAuoDao().busca();
         ListView lista = view.findViewById(R.id.fragment_lista);
-        ArrayAdapter<Aluno> adapter = new ArrayAdapter<Aluno>(context, android.R.layout.simple_expandable_list_item_1, alunos);
+        ArrayAdapter<Aluno> adapter = new ArrayAdapter(context, android.R.layout.simple_expandable_list_item_1, alunos);
         lista.setAdapter(adapter);
     }
 

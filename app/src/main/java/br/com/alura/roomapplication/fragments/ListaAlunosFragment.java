@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -61,8 +62,17 @@ public class ListaAlunosFragment extends Fragment implements View.OnClickListene
         List<Aluno> alunos = alunoDao.busca();
         */
         Context context = getContext();
+
         List<Aluno> alunos = gerador.gerar(context).getAuoDao().busca();
-        ListView lista = view.findViewById(R.id.fragment_lista);
+        final ListView lista = view.findViewById(R.id.fragment_lista);
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Aluno aluno = (Aluno) lista.getItemAtPosition(position);
+                delegate.lidaComAlunoSelecionado(aluno);
+            }
+        });
+
         ArrayAdapter<Aluno> adapter = new ArrayAdapter(context, android.R.layout.simple_expandable_list_item_1, alunos);
         lista.setAdapter(adapter);
     }

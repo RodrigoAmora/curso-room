@@ -49,16 +49,33 @@ public class FormularioAlunosFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 atualizarAluno();
-
-                GeradorDeBancoDaDados gerador = new GeradorDeBancoDaDados();
-                AlunoDao alunoDao = gerador.gerar(getActivity()).getAuoDao();
-                alunoDao.insere(aluno);
-
+                persisteAluno();
                 delegate.voltarParaTelaAnterior();
             }
         });
 
+        colocarAlunoNaTela();
+
         return view;
+    }
+
+    private void persisteAluno() {
+        GeradorDeBancoDaDados gerador = new GeradorDeBancoDaDados();
+        AlunoDao alunoDao = gerador.gerar(getActivity()).getAuoDao();
+        if (aluno.getId() == null) {
+            alunoDao.insere(aluno);
+        } else {
+            alunoDao.altera(aluno);
+        }
+    }
+
+    private void colocarAlunoNaTela() {
+        Bundle argumentos = getArguments();
+        if (argumentos != null) {
+            this.aluno = (Aluno) argumentos.getSerializable("aluno");
+            campoEmail.setText(aluno.getEmail());
+            campoNome.setText(aluno.getNome());
+        }
     }
 
     private void atualizarAluno() {

@@ -9,6 +9,7 @@ public class GeradorDeBancoDaDados {
         AluraDatadase aluraDB = Room
                 .databaseBuilder(context, AluraDatadase.class, "AluraDB")
                 .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
                 .build();
 
         return aluraDB;

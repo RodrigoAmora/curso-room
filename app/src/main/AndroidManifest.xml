@@ -19,7 +19,7 @@
         </activity>
 
         <activity android:name=".activities.AlunosActivity" />
-
+        <activity android:name=".activities.ProvasActivity" />
     </application>
 
 </manifest>

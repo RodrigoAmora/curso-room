@@ -14,8 +14,12 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
         Button cadastroAlunos = findViewById(R.id.dash_btn_aluno);
         cadastroAlunos.setOnClickListener(this);
+
+        Button cadastroProvas = findViewById(R.id.dash_btn_provas);
+        cadastroProvas.setOnClickListener(this);
     }
 
     @Override
@@ -25,6 +29,11 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
         switch (viewId) {
             case R.id.dash_btn_aluno:
                 intent = new Intent(this, AlunosActivity.class);
+                startActivity(intent);
+                break;
+
+            case R.id.dash_btn_provas:
+                intent = new Intent(this, ProvasActivity.class);
                 startActivity(intent);
                 break;
         }

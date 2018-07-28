@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,8 @@ import android.widget.ListView;
 import java.util.List;
 
 import br.com.alura.roomapplication.R;
+import br.com.alura.roomapplication.database.AlunoDao;
+import br.com.alura.roomapplication.database.AluraDatadase;
 import br.com.alura.roomapplication.database.GeradorDeBancoDaDados;
 import br.com.alura.roomapplication.delegate.AlunosDelegate;
 import br.com.alura.roomapplication.modelos.Aluno;
@@ -22,6 +25,7 @@ import br.com.alura.roomapplication.modelos.Aluno;
 public class ListaAlunosFragment extends Fragment implements View.OnClickListener {
 
     private AlunosDelegate delegate;
+    private FloatingActionButton addAluno;
     private ListView listaAlunos;
 
     @Override
@@ -50,21 +54,22 @@ public class ListaAlunosFragment extends Fragment implements View.OnClickListene
     }
 
     private void configurarFAB(View view) {
-        FloatingActionButton addAluno = view.findViewById(R.id.fragment_lista_fab);
+        addAluno = view.findViewById(R.id.fragment_lista_fab);
         addAluno.setOnClickListener(this);
     }
 
     private void configurarLista(View view) {
-        GeradorDeBancoDaDados gerador = new GeradorDeBancoDaDados();
-        /*
-        AluraDatadase aluraDatadase = gerador.gerar(getContext());
-        AlunoDao alunoDao = aluraDatadase.getAuoDao();
-        List<Aluno> alunos = alunoDao.busca();
-        */
         Context context = getContext();
 
-        List<Aluno> alunos = gerador.gerar(context).getAuoDao().busca();
+        GeradorDeBancoDaDados gerador = new GeradorDeBancoDaDados();
+        AluraDatadase aluraDatadase = gerador.gerar(context);
+        final AlunoDao alunoDao = aluraDatadase.getAuoDao();
+        List<Aluno> alunos = alunoDao.busca();
+
         final ListView lista = view.findViewById(R.id.fragment_lista);
+        final ArrayAdapter<Aluno> adapter = new ArrayAdapter(context, android.R.layout.simple_expandable_list_item_1, alunos);
+        lista.setAdapter(adapter);
+
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -73,8 +78,23 @@ public class ListaAlunosFragment extends Fragment implements View.OnClickListene
             }
         });
 
-        ArrayAdapter<Aluno> adapter = new ArrayAdapter(context, android.R.layout.simple_expandable_list_item_1, alunos);
-        lista.setAdapter(adapter);
+        lista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                final Aluno aluno = (Aluno) lista.getItemAtPosition(position);
+                String mensagemDelete = "Excluir aluno "+aluno.getNome()+"?";
+                Snackbar.make(addAluno, mensagemDelete, Snackbar.LENGTH_SHORT)
+                        .setAction("Sim", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                alunoDao.apagar(aluno);
+                                adapter.remove(aluno);
+                            }
+                        })
+                        .show();
+                return true;
+            }
+        });
     }
 
     @Override

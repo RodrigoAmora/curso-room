@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import br.com.alura.roomapplication.R;
 import br.com.alura.roomapplication.database.AlunoDao;
@@ -61,7 +60,7 @@ public class FormularioAlunosFragment extends Fragment {
 
     private void persisteAluno() {
         GeradorDeBancoDaDados gerador = new GeradorDeBancoDaDados();
-        AlunoDao alunoDao = gerador.gerar(getActivity()).getAuoDao();
+        AlunoDao alunoDao = gerador.gerar(getActivity()).getAlunoDao();
         if (aluno.getId() == null) {
             alunoDao.insere(aluno);
         } else {

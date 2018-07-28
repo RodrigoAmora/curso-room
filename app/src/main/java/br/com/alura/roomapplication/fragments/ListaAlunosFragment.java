@@ -63,7 +63,7 @@ public class ListaAlunosFragment extends Fragment implements View.OnClickListene
 
         GeradorDeBancoDaDados gerador = new GeradorDeBancoDaDados();
         AluraDatadase aluraDatadase = gerador.gerar(context);
-        final AlunoDao alunoDao = aluraDatadase.getAuoDao();
+        final AlunoDao alunoDao = aluraDatadase.getAlunoDao();
         List<Aluno> alunos = alunoDao.busca();
 
         final ListView lista = view.findViewById(R.id.fragment_lista);

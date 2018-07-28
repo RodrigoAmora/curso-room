@@ -9,7 +9,7 @@ import br.com.alura.roomapplication.modelos.Prova;
 @Database(entities = {Aluno.class, Prova.class}, version = 2)
 public abstract class AluraDatadase extends RoomDatabase {
 
-    public abstract AlunoDao getAuoDao();
+    public abstract AlunoDao getAlunoDao();
     public abstract ProvaDao getProvaDao();
 
 }

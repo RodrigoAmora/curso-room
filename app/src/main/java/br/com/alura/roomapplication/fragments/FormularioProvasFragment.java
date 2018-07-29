@@ -51,7 +51,7 @@ public class FormularioProvasFragment extends Fragment implements ProvasDelegate
 
     @Override
     public void setTitulo(String titulo) {
-        delegate.setTitulo("Formulário de Provas");
+        delegate.setTitulo(getString(R.string.formulario_de_provas));
     }
 
     @Override

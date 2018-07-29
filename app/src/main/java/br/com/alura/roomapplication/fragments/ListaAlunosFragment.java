@@ -37,7 +37,7 @@ public class ListaAlunosFragment extends Fragment implements View.OnClickListene
     @Override
     public void onResume() {
         super.onResume();
-        delegate.setTitulo("Lista de Alunos");
+        delegate.setTitulo(getString(R.string.lista_de_alunos));
     }
 
     @Nullable

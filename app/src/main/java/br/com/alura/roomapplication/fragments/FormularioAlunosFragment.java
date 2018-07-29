@@ -32,7 +32,7 @@ public class FormularioAlunosFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        delegate.setTitulo("Formulário de Alunos");
+        delegate.setTitulo(getString(R.string.formulario_de_alunos));
     }
 
     @Nullable

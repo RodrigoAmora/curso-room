@@ -12,4 +12,10 @@
     <string name="formulario_prova_btn">Adicionar</string>
     <string name="formulario_prova_materia">Materia</string>
     <string name="formulario_prova_data">Data de realização</string>
+
+    <string name="formulario_de_alunos">Formulário de Alunos</string>
+    <string name="formulario_de_provas">Formulário de Provas</string>
+    <string name="lista_de_alunos">Lista de Alunos</string>
+    <string name="lista_de_provas">Lista de Provas</string>
+
 </resources>

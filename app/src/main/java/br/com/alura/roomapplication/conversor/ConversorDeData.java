@@ -5,9 +5,11 @@ import android.arch.persistence.room.TypeConverter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.SimpleFormatter;
 
 public class ConversorDeData {
+
+    private static String padraoDeData = "dd/MM/yyyy";
+    private static SimpleDateFormat FORMATADOR = new SimpleDateFormat(padraoDeData);
 
     @TypeConverter
     public static Long converterParaTime(Calendar data) {
@@ -18,8 +20,7 @@ public class ConversorDeData {
     public static Calendar converterParaCalendar(String data) {
         Calendar calendar = Calendar.getInstance();
         try {
-            SimpleDateFormat simpleFormatter = new SimpleDateFormat("dd/MM/yyyy");
-            Date date = simpleFormatter.parse(data);
+            Date date = FORMATADOR.parse(data);
             calendar.setTime(date);
         } catch (Exception e) {
             e.printStackTrace();
@@ -36,9 +37,7 @@ public class ConversorDeData {
 
     @TypeConverter
     public static String converterDo(Calendar data) {
-        SimpleDateFormat simpleFormatter = new SimpleDateFormat("dd/MM/yyyy");
-        String dataFormatada = simpleFormatter.format(data.getTime());
-        return dataFormatada;
+        return FORMATADOR.format(data.getTime());
     }
 
 }

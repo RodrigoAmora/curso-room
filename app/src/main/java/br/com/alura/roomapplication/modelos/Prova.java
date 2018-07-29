@@ -4,6 +4,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 @Entity
 public class Prova implements Serializable {
@@ -11,7 +12,9 @@ public class Prova implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private Long id;
 
-    private String materia, data;
+    private String materia;
+
+    private Calendar dataRealizacao;
 
     public Long getId() {
         return id;
@@ -29,12 +32,12 @@ public class Prova implements Serializable {
         this.materia = materia;
     }
 
-    public String getData() {
-        return data;
+    public Calendar getDataRealizacao() {
+        return dataRealizacao;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setDataRealizacao(Calendar dataRealizacao) {
+        this.dataRealizacao = dataRealizacao;
     }
 
 }

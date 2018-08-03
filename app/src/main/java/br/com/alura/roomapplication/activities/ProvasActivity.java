@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import br.com.alura.roomapplication.R;
 import br.com.alura.roomapplication.delegate.ProvasDelegate;
 import br.com.alura.roomapplication.fragments.FormularioProvasFragment;
+import br.com.alura.roomapplication.fragments.ListaProvasFragments;
 import br.com.alura.roomapplication.modelos.Prova;
 
 public class ProvasActivity extends AppCompatActivity implements ProvasDelegate {
@@ -17,12 +18,12 @@ public class ProvasActivity extends AppCompatActivity implements ProvasDelegate 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provas);
-        trocarDeFragment(new FormularioProvasFragment(), false);
+        trocarDeFragment(new ListaProvasFragments(), false);
     }
 
     @Override
     public void lidaComClickFAB() {
-
+        trocarDeFragment(new FormularioProvasFragment(), true);
     }
 
     @Override

@@ -40,4 +40,9 @@ public class Prova implements Serializable {
         this.dataRealizacao = dataRealizacao;
     }
 
+    @Override
+    public String toString() {
+        return materia+" - "+dataRealizacao;
+    }
+
 }

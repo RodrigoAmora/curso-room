@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.DashboardActivity"
+            android:name=".ui.activities.DashboardActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,8 +18,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.AlunosActivity" />
-        <activity android:name=".activities.ProvasActivity" />
+        <activity android:name=".ui.activities.AlunosActivity" />
+        <activity android:name=".ui.activities.ProvasActivity" />
     </application>
 
 </manifest>

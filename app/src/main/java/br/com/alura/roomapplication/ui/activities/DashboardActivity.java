@@ -1,4 +1,4 @@
-package br.com.alura.roomapplication.activities;
+package br.com.alura.roomapplication.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package br.com.alura.roomapplication.fragments;
+package br.com.alura.roomapplication.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

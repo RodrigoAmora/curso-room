@@ -1,4 +1,4 @@
-package br.com.alura.roomapplication.activities;
+package br.com.alura.roomapplication.ui.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,8 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import br.com.alura.roomapplication.R;
 import br.com.alura.roomapplication.delegate.AlunosDelegate;
-import br.com.alura.roomapplication.fragments.FormularioAlunosFragment;
-import br.com.alura.roomapplication.fragments.ListaAlunosFragment;
+import br.com.alura.roomapplication.ui.fragments.FormularioAlunosFragment;
+import br.com.alura.roomapplication.ui.fragments.ListaAlunosFragment;
 import br.com.alura.roomapplication.modelos.Aluno;
 
 public class AlunosActivity extends AppCompatActivity implements AlunosDelegate {

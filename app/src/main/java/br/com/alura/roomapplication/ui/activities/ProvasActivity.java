@@ -1,4 +1,4 @@
-package br.com.alura.roomapplication.activities;
+package br.com.alura.roomapplication.ui.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,8 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import br.com.alura.roomapplication.R;
 import br.com.alura.roomapplication.delegate.ProvasDelegate;
-import br.com.alura.roomapplication.fragments.FormularioProvasFragment;
-import br.com.alura.roomapplication.fragments.ListaProvasFragments;
+import br.com.alura.roomapplication.ui.fragments.FormularioProvasFragment;
+import br.com.alura.roomapplication.ui.fragments.ListaProvasFragments;
 import br.com.alura.roomapplication.modelos.Prova;
 
 public class ProvasActivity extends AppCompatActivity implements ProvasDelegate {

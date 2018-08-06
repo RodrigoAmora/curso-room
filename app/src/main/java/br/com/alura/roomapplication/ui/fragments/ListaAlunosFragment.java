@@ -1,4 +1,4 @@
-package br.com.alura.roomapplication.fragments;
+package br.com.alura.roomapplication.ui.fragments;
 
 import android.content.Context;
 import android.os.Bundle;

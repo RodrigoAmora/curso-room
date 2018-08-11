@@ -2,8 +2,10 @@ package br.com.alura.roomapplication.ui.fragments;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -22,9 +24,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import java.util.Calendar;
 import java.util.List;
 
 import br.com.alura.roomapplication.R;
+import br.com.alura.roomapplication.conversor.ConversorDeData;
 import br.com.alura.roomapplication.database.AluraDatadase;
 import br.com.alura.roomapplication.database.GeradorDeBancoDaDados;
 import br.com.alura.roomapplication.database.ProvaDao;
@@ -53,15 +57,15 @@ public class ListaProvasFragments extends Fragment implements View.OnClickListen
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_lista_porvas_calendario) {
-            Context context = getContext();
+            final Context context = getContext();
             LinearLayout linearLayout = new LinearLayout(context);
             linearLayout.setOrientation(LinearLayout.VERTICAL);
 
-            EditText campoInicio = new EditText(context);
+            final EditText campoInicio = new EditText(context);
             campoInicio.setHint("Inicio");
             campoInicio.setInputType(InputType.TYPE_DATETIME_VARIATION_DATE);
 
-            EditText campoFim = new EditText(context);
+            final EditText campoFim = new EditText(context);
             campoFim.setHint("Fim");
             campoFim.setInputType(InputType.TYPE_DATETIME_VARIATION_DATE);
 
@@ -70,11 +74,28 @@ public class ListaProvasFragments extends Fragment implements View.OnClickListen
 
             new AlertDialog.Builder(context)
                     .setMessage("Datas para busca")
-                    .setPositiveButton("Buscar", null)
+                    .setPositiveButton("Buscar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String dataInicioString = campoInicio.getText().toString();
+                            String dataFimString = campoFim.getText().toString();
+
+                            Calendar dataInicio = ConversorDeData.converterParaCalendar(dataInicioString);
+                            Calendar dataFim = ConversorDeData.converterParaCalendar(dataFimString);
+
+                            GeradorDeBancoDaDados geradorDeBancoDaDados = new GeradorDeBancoDaDados();
+                            AluraDatadase datadase = geradorDeBancoDaDados.gerar(context);
+                            ProvaDao provaDao = datadase.getProvaDao();
+
+                            List<Prova> provas = provaDao.buscarPeloPeriodo(dataInicio, dataFim);
+                            final ArrayAdapter<Prova> adapter = popularAdapter(context, provas);
+                            listaProvas.setAdapter(adapter);
+                        }
+                    })
                     .setNegativeButton("Cancelar", null)
                     .show();
         }
-        
+
         return true;
     }
 
@@ -110,22 +131,22 @@ public class ListaProvasFragments extends Fragment implements View.OnClickListen
         final ProvaDao alunoDao = aluraDatadase.getProvaDao();
         List<Prova> provas = alunoDao.busca();
 
-        final ListView lista = view.findViewById(R.id.fragment_lista);
-        final ArrayAdapter<Prova> adapter = new ArrayAdapter(context, android.R.layout.simple_expandable_list_item_1, provas);
-        lista.setAdapter(adapter);
+        listaProvas = view.findViewById(R.id.fragment_lista);
+        final ArrayAdapter<Prova> adapter = popularAdapter(context, provas);
+        listaProvas.setAdapter(adapter);
 
-        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listaProvas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Prova prova = (Prova) lista.getItemAtPosition(position);
+                Prova prova = (Prova) listaProvas.getItemAtPosition(position);
                 delegate.lidaComAProvaSelecionada(prova);
             }
         });
 
-        lista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        listaProvas.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                final Prova prova = (Prova) lista.getItemAtPosition(position);
+                final Prova prova = (Prova) listaProvas.getItemAtPosition(position);
                 String mensagemDelete = "Excluir prova "+prova.getMateria()+"?";
                 Snackbar.make(addProva, mensagemDelete, Snackbar.LENGTH_SHORT)
                         .setAction("Sim", new View.OnClickListener() {
@@ -139,6 +160,12 @@ public class ListaProvasFragments extends Fragment implements View.OnClickListen
                 return true;
             }
         });
+    }
+
+    @NonNull
+    private ArrayAdapter<Prova> popularAdapter(Context context, List<Prova> provas) {
+        final ArrayAdapter<Prova> adapter = new ArrayAdapter(context, android.R.layout.simple_expandable_list_item_1, provas);
+        return adapter;
     }
 
     @Override

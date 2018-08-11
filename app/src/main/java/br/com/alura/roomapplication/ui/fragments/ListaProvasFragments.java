@@ -1,16 +1,25 @@
 package br.com.alura.roomapplication.ui.fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.util.List;
@@ -32,6 +41,41 @@ public class ListaProvasFragments extends Fragment implements View.OnClickListen
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         delegate = (ProvasDelegate) getActivity();
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.lista_provas_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_lista_porvas_calendario) {
+            Context context = getContext();
+            LinearLayout linearLayout = new LinearLayout(context);
+            linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+            EditText campoInicio = new EditText(context);
+            campoInicio.setHint("Inicio");
+            campoInicio.setInputType(InputType.TYPE_DATETIME_VARIATION_DATE);
+
+            EditText campoFim = new EditText(context);
+            campoFim.setHint("Fim");
+            campoFim.setInputType(InputType.TYPE_DATETIME_VARIATION_DATE);
+
+            linearLayout.addView(campoInicio);
+            linearLayout.addView(campoFim);
+
+            new AlertDialog.Builder(context)
+                    .setMessage("Datas para busca")
+                    .setPositiveButton("Buscar", null)
+                    .setNegativeButton("Cancelar", null)
+                    .show();
+        }
+        
+        return true;
     }
 
     @Override

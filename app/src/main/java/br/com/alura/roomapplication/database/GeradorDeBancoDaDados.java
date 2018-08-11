@@ -11,7 +11,6 @@ public class GeradorDeBancoDaDados {
                 .allowMainThreadQueries()
                 .fallbackToDestructiveMigration()
                 .build();
-
         return aluraDB;
     }
 
